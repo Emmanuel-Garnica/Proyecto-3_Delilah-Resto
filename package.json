@@ -1,0 +1,11 @@
+{
+  "name": "proyecto3-delilah_resto",
+  "version": "1.0.0",
+  "description": "Package.json del proyecto 3 con Acámica",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emmanuel Garnica",
+  "license": "ISC"
+}
