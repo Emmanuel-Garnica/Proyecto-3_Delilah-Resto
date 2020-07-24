@@ -11,6 +11,8 @@ const firma = 'E57a_E5_1a_F7rma_De1_Pr0yec70';
 
 app.use(bodyParser.json());
 
+//Obtener todos los productos
+
 app.get('/productos', (req, res) => {
 
     sequelize.query(
@@ -21,6 +23,8 @@ app.get('/productos', (req, res) => {
     })
 
 });
+
+//Agregar producto (solo admin)
 
 app.post('/productos', (req, res) => {
 
@@ -35,6 +39,8 @@ app.post('/productos', (req, res) => {
 
 });
 
+//Actualizar producto (solo admin)
+
 app.patch('/productos', (req, res) => {
 
     const { id, producto, precio, foto } = req.body;
@@ -47,6 +53,8 @@ app.patch('/productos', (req, res) => {
     })
 
 });
+
+//Borrar productos (solo admin)
 
 app.delete('/productos', (req, res) => {
 
@@ -61,8 +69,11 @@ app.delete('/productos', (req, res) => {
 
 });
 
+//Registrar nuevo usuario
+
 app.post('/usuarios', (req, res) => {
 
+    //Falta verificar que exista el email
     const { nombre_y_apellido, email, telefono, direccion, contrasena } = req.body;
 
     const hash = bcrypt.hashSync(contrasena, 10);
@@ -77,6 +88,8 @@ app.post('/usuarios', (req, res) => {
 
 });
 
+//Login de usuarios
+
 app.post('/login', (req, res) => {
 
     const { email, contrasena } = req.body;
@@ -90,6 +103,8 @@ app.post('/login', (req, res) => {
         ).then((resultados) => resultados[0])
         .then((array) => array[0])
         .then(async(obj) => {
+
+            console.log(obj);
 
             if (obj === undefined) {
                 return res.sendStatus(401);
@@ -116,6 +131,8 @@ app.post('/login', (req, res) => {
                 nombre_y_apellido
             }, firma);
 
+            // localStorage.setItem("token",token);
+
             res.json({ token });
 
         })
@@ -126,19 +143,28 @@ app.post('/login', (req, res) => {
 
 });
 
+//Middleware
+
 const auntenticarUsuario = (req, res, next) => {
 
     try {
         const signed = req.headers.authorization.split(' ')[1];
         const verificarToken = jwt.verify(signed, firma);
+        console.log(verificarToken)
         if (verificarToken) {
             req.usuario = verificarToken;
-            console.log(verificarToken)
+            console.log("Este es el segundo" + verificarToken)
             return next();
         }
     } catch (error) {
         res.json({ error: 'Error al validar usuario' });
     }
+
+};
+
+const esAdmin = (req, res, next) => {
+
+
 
 };
 
@@ -153,6 +179,11 @@ app.use((err, req, res, next) => {
     res.sendStatus(500);
 
 });
+
+//Para enviar a la página personalizada de not found
+// app.all("*", function(req, res) {
+//     return res.status(404).send('page not found')
+// });
 
 app.listen(3000, () => {
     console.log('Servidor iniciado en el puerto 3000. ')
