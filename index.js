@@ -11,6 +11,47 @@ const firma = 'E57a_E5_1a_F7rma_De1_Pr0yec70';
 
 app.use(bodyParser.json());
 
+//Middleware para autenticar al usuario
+
+const auntenticarUsuario = (req, res, next) => {
+
+    try {
+        const signed = req.headers.authorization.split(' ')[1];
+        const verificarToken = jwt.verify(signed, firma);
+        console.log(verificarToken)
+        if (verificarToken) {
+            req.usuario = verificarToken;
+            console.log("Este es el segundo" + verificarToken)
+            return next();
+        }
+    } catch (error) {
+        res.json({ error: 'Error al validar usuario' });
+    }
+
+};
+
+//Middleware para validar si es admin o no
+
+const esAdmin = (req, res, next) => {
+
+    const signed = req.headers.authorization.split(' ')[1];
+    const verificarToken = jwt.verify(signed, firma);
+    const email = verificarToken.email;
+
+    sequelize.query('SELECT es_admin FROM usuarios WHERE email = ?', { replacements: [email] })
+        .then((resultados) => resultados[0])
+        .then((array) => array[0].es_admin)
+        .then(es_admin => {
+
+            if (es_admin === 1) {
+                next();
+            } else {
+                res.status(403).json({ error: "No tiene permitido el acceso." });
+            }
+        })
+
+};
+
 //Obtener todos los productos
 
 app.get('/productos', (req, res) => {
@@ -26,7 +67,7 @@ app.get('/productos', (req, res) => {
 
 //Agregar producto (solo admin)
 
-app.post('/productos', (req, res) => {
+app.post('/productos', esAdmin, (req, res) => {
 
     const { producto, precio, foto } = req.body;
 
@@ -41,7 +82,7 @@ app.post('/productos', (req, res) => {
 
 //Actualizar producto (solo admin)
 
-app.patch('/productos', (req, res) => {
+app.patch('/productos', esAdmin, (req, res) => {
 
     const { id, producto, precio, foto } = req.body;
 
@@ -56,7 +97,7 @@ app.patch('/productos', (req, res) => {
 
 //Borrar productos (solo admin)
 
-app.delete('/productos', (req, res) => {
+app.delete('/productos', esAdmin, (req, res) => {
 
     const producto = req.body.producto;
 
@@ -69,11 +110,45 @@ app.delete('/productos', (req, res) => {
 
 });
 
+//Middleware para asegurar el suministro de todos los datos de registro
+
+function suministraDatosReg(req, res, next) {
+
+    const { nombre_y_apellido, email, telefono, direccion, contrasena } = req.body;
+
+    if (!nombre_y_apellido || !email || !telefono || !direccion || !contrasena) {
+        return res.status(400).json({ error: "Debe llenar todos los campos para continuar." });
+    } else {
+        next();
+    }
+
+}
+
+//Middleware para verificar si el email ya se encuentra registrado
+
+function existeEmail(req, res, next) {
+
+    const { email } = req.body;
+
+    sequelize.query(
+            'SELECT email FROM usuarios WHERE email = ?', { replacements: [email] }
+        ).then((resultados) => resultados[0])
+        .then((array) => array[0])
+        .then(obj => {
+
+            if (obj === undefined) {
+                next();
+            } else {
+                res.status(200).json({ Error: "Este correo ya se encuentra registrado." });
+            }
+        })
+
+}
+
 //Registrar nuevo usuario
 
-app.post('/usuarios', (req, res) => {
+app.post('/usuarios', suministraDatosReg, existeEmail, (req, res) => {
 
-    //Falta verificar que exista el email
     const { nombre_y_apellido, email, telefono, direccion, contrasena } = req.body;
 
     const hash = bcrypt.hashSync(contrasena, 10);
@@ -110,7 +185,7 @@ app.post('/login', (req, res) => {
                 return res.sendStatus(401);
             };
 
-            const { hash, nombre_y_apellido } = obj;
+            const { hash, email, nombre_y_apellido } = obj;
 
             try {
 
@@ -128,10 +203,9 @@ app.post('/login', (req, res) => {
             }
 
             const token = jwt.sign({
+                email,
                 nombre_y_apellido
             }, firma);
-
-            // localStorage.setItem("token",token);
 
             res.json({ token });
 
@@ -143,30 +217,22 @@ app.post('/login', (req, res) => {
 
 });
 
-//Middleware
+//Crear pedido
 
-const auntenticarUsuario = (req, res, next) => {
+app.post('/pedidos', (req, res) => {
 
-    try {
-        const signed = req.headers.authorization.split(' ')[1];
-        const verificarToken = jwt.verify(signed, firma);
-        console.log(verificarToken)
-        if (verificarToken) {
-            req.usuario = verificarToken;
-            console.log("Este es el segundo" + verificarToken)
-            return next();
-        }
-    } catch (error) {
-        res.json({ error: 'Error al validar usuario' });
-    }
+    const { estado, hora, cantidad, forma_pago } = req.body;
 
-};
+    sequelize.query(
+        'INSERT INTO pedidos (estado, hora, cantidad, forma_pago) VALUES (?, ?, ?, ?)', { replacements: [estado, hora, cantidad, forma_pago] }
+    )
 
-const esAdmin = (req, res, next) => {
+})
 
-
-
-};
+app.post('/pruebaAdmin', esAdmin, (req, res) => {
+    res.sendStatus(200);
+    console.log('SUCCESS - Es admin.')
+})
 
 app.post('/seguro', auntenticarUsuario, (req, res) => {
     res.send(`Esta es una página autenticada. Hola ${req.usuario.nombre_y_apellido}`);
