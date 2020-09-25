@@ -221,10 +221,22 @@ app.post('/login', (req, res) => {
 
 app.post('/pedidos', (req, res) => {
 
-    const { estado, hora, cantidad, forma_pago } = req.body;
+    const signed = req.headers.authorization.split(' ')[1];
+    const verificarToken = jwt.verify(signed, firma);
+    const email = verificarToken.email;
+
+    const id_cliente = sequelize.query(
+        'SELECT id FROM usuarios WHERE email = ?', { replacements: [email] }
+    )
+
+    const { hora, cantidad, forma_pago } = req.body;
 
     sequelize.query(
-        'INSERT INTO pedidos (estado, hora, cantidad, forma_pago) VALUES (?, ?, ?, ?)', { replacements: [estado, hora, cantidad, forma_pago] }
+        'INSERT INTO pedidos (id_cliente, hora, cantidad, forma_pago) VALUES (?, ?, ?, ?)', { replacements: [id_cliente, hora, cantidad, forma_pago] }
+    )
+
+    sequelize.query(
+        'INSERT INTO productos_pedido (id_producto) VALUES (?)', { replacements: [id_producto] }
     )
 
 })
