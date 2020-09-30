@@ -221,34 +221,51 @@ app.post('/login', (req, res) => {
 
 app.post('/pedidos', (req, res) => {
 
+    // Se puede dejar el id del usuario dentro del token para no realizar la tarea con el query del email (aún no sé como sacar el id del usuario)
     const signed = req.headers.authorization.split(' ')[1];
     const verificarToken = jwt.verify(signed, firma);
     const email = verificarToken.email;
 
-    const id_cliente = sequelize.query(
-        'SELECT id FROM usuarios WHERE email = ?', { replacements: [email] }
-    )
+    // const id_cliente = sequelize.query(
+    //     'SELECT id FROM usuarios WHERE email = ?', { replacements: [email] }
+    // ).then( resultados => { 
+    //     console.log("Este es el console.log de dentro: " + resultados)
+    //  })
 
-    const { hora, cantidad, forma_pago } = req.body;
+    // console.log("Este es el console.log de fuera: " + id_cliente)
+
+    const { id_cliente, fecha_pedido, forma_pago } = req.body;
 
     sequelize.query(
-        'INSERT INTO pedidos (id_cliente, hora, cantidad, forma_pago) VALUES (?, ?, ?, ?)', { replacements: [id_cliente, hora, cantidad, forma_pago] }
-    )
+        'INSERT INTO pedidos (id_cliente, fecha_pedido, forma_pago) VALUES (?, ?, ?)', { replacements: [id_cliente, fecha_pedido, forma_pago] }
+    ).then( resultados => {
+        console.log("Pedido creado!")
+    })
+
+    //montar en productos_pedido id del pedido, id de productos y cantidad
+
+    // const productosCarrito = [
+    //     {
+    //         id_pedido: 1,
+    //         id_producto: 1,
+    //         cantidad: 3
+    //     }
+    // ]
+    // for productosCarrito.lenght repita el query
+    const { id_pedido, id_producto, cantidad } = req.body;
 
     sequelize.query(
-        'INSERT INTO productos_pedido (id_producto) VALUES (?)', { replacements: [id_producto] }
-    )
+        'INSERT INTO productos_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)', { replacements: [id_pedido, id_producto, cantidad] }
+    ).then( resultados => {
+        console.log(resultados)
+        res.status(200).json( { "Resultado" : "Success 2!!" } )
+    })
+
+    // sequelize.query(
+    //     'INSERT INTO productos_pedido (id_producto) VALUES (?)', { replacements: [id_producto] }
+    // )
 
 })
-
-app.post('/pruebaAdmin', esAdmin, (req, res) => {
-    res.sendStatus(200);
-    console.log('SUCCESS - Es admin.')
-})
-
-app.post('/seguro', auntenticarUsuario, (req, res) => {
-    res.send(`Esta es una página autenticada. Hola ${req.usuario.nombre_y_apellido}`);
-});
 
 app.use((err, req, res, next) => {
 
