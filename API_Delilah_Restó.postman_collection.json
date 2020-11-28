@@ -1,0 +1,459 @@
+{
+	"info": {
+		"_postman_id": "4771ed6b-8fa8-4d5e-b27b-97b615a3bb0f",
+		"name": "API_Delilah_Restó",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CRUD Productos",
+			"item": [
+				{
+					"name": "Crear producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVnYXJuaWNhQHNlcmVtcHJlLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiRW1tYW51ZWwgR2FybmljYSIsImlhdCI6MTYwMDk5NjgzOX0.zkva5EnzUyauG6mJWxRUMe1QuDHEuAzYFm5ShIZ_2j0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"producto\" : \"Pescado\",\r\n    \"precio\" : \"1000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/productos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/productos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar un producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVnYXJuaWNhQHNlcmVtcHJlLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiRW1tYW51ZWwgR2FybmljYSIsImlhdCI6MTYwMDk5NjgzOX0.zkva5EnzUyauG6mJWxRUMe1QuDHEuAzYFm5ShIZ_2j0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"4\",\r\n    \"producto\" : \"Mojarra\",\r\n    \"precio\" : \"6000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/productos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVnYXJuaWNhQHNlcmVtcHJlLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiRW1tYW51ZWwgR2FybmljYSIsImlhdCI6MTYwMDk5NjgzOX0.zkva5EnzUyauG6mJWxRUMe1QuDHEuAzYFm5ShIZ_2j0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"producto\" : \"Pescado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/productos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4bad7bed-38ee-4803-aba0-21d49cf13451",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "84539f9e-3d80-4da8-8859-8b17428b428a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "CRUD Pedidos",
+			"item": [
+				{
+					"name": "Crear pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_pedido\" : \"2020-11-21\",\r\n    \"forma_pago\" : \"PSE\",\r\n    \"productos\" : {\r\n        \"1\" : \"12\",\r\n        \"2\" : \"19\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/pedidos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar estado pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_pedido\" : \"1\",\r\n    \"nuevo_estado\" : \"Entregado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/estado_pedidos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"estado_pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar un pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_pedido\" : \"9\",\r\n    \"fecha_pedido\" : \"2020-11-27\",\r\n    \"forma_pago\" : \"Efectivo\",\r\n    \"estado\" : \"Entregado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/pedidos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_pedido\" : \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/pedidos",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Registrar usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre_y_apellido\": \"Manuel Gomez\",\r\n    \"email\": \"mago@gmail.com\",\r\n    \"telefono\": \"55555555\",\r\n    \"direccion\": \"Ciudad Bolivar\",\r\n    \"contrasena\": \"ninja123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/usuarios",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login usuarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"mago@gmail.com\",\r\n    \"contrasena\": \"ninja123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los usuarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/usuarios",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	]
+}
