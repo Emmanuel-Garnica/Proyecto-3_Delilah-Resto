@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const sequelize = new Sequelize('mysql://root:@localhost:3306/delilah_resto');
+const sequelize = new Sequelize('mysql://root:@localhost:33067/delilah_resto');
 
 const firma = 'E57a_E5_1a_F7rma_De1_Pr0yec70';
 
@@ -72,10 +72,10 @@ app.post('/productos', esAdmin, (req, res) => {
     const { producto, precio, foto } = req.body;
 
     sequelize.query(
-        'INSERT INTO productos (producto, precio, foto) VALUES (?, ?, ?)', { replacements: [producto, precio, foto] }
+        'INSERT INTO productos (producto, precio) VALUES (?, ?)', { replacements: [producto, precio] }
     ).then(resultados => {
         console.log(resultados)
-        res.status(201).json({ id: resultados[0], producto, precio, foto });
+        res.status(201).json({ id: resultados[0], producto, precio });
     });
 
 });
@@ -84,13 +84,12 @@ app.post('/productos', esAdmin, (req, res) => {
 
 app.patch('/productos', esAdmin, (req, res) => {
 
-    const { id, producto, precio, foto } = req.body;
+    const { id, producto, precio } = req.body;
 
     sequelize.query(
-        `UPDATE productos SET precio = ${precio} WHERE id = ?`, { replacements: [id] }
+        `UPDATE productos SET producto = "${producto}", precio = ${precio} WHERE id = ?`, { replacements: [id] }
     ).then(resultados => {
-        console.log(resultados)
-        res.status(200).json({ id: resultados[0], producto, precio, foto })
+        res.status(200).json({ "Resultado" : "Producto actualizado !!" })
     })
 
 });
@@ -174,7 +173,7 @@ app.post('/login', (req, res) => {
     };
 
     sequelize.query(
-            'SELECT nombre_y_apellido, email, hash FROM usuarios WHERE email = ?', { replacements: [email] }
+            'SELECT id, nombre_y_apellido, email, hash, es_admin FROM usuarios WHERE email = ?', { replacements: [email] }
         ).then((resultados) => resultados[0])
         .then((array) => array[0])
         .then(async(obj) => {
@@ -185,7 +184,7 @@ app.post('/login', (req, res) => {
                 return res.sendStatus(401);
             };
 
-            const { hash, email, nombre_y_apellido } = obj;
+            const { id, hash, email, nombre_y_apellido, es_admin } = obj;
 
             try {
 
@@ -203,8 +202,10 @@ app.post('/login', (req, res) => {
             }
 
             const token = jwt.sign({
+                id,
                 email,
-                nombre_y_apellido
+                nombre_y_apellido,
+                es_admin
             }, firma);
 
             res.json({ token });
@@ -217,6 +218,18 @@ app.post('/login', (req, res) => {
 
 });
 
+// Obtener todos los usuarios
+
+app.get('/usuarios', esAdmin, (req, res) => {
+
+    sequelize.query(
+        'SELECT * FROM usuarios'
+    ).then( resultados => {
+        res.status(200).json( { resultados } )
+    })
+
+})
+
 //Crear pedido
 
 app.post('/pedidos', (req, res) => {
@@ -225,47 +238,83 @@ app.post('/pedidos', (req, res) => {
     const signed = req.headers.authorization.split(' ')[1];
     const verificarToken = jwt.verify(signed, firma);
     const email = verificarToken.email;
+    const id_cliente = verificarToken.id;
+    let id_pedido;
 
-    // const id_cliente = sequelize.query(
-    //     'SELECT id FROM usuarios WHERE email = ?', { replacements: [email] }
-    // ).then( resultados => { 
-    //     console.log("Este es el console.log de dentro: " + resultados)
-    //  })
 
-    // console.log("Este es el console.log de fuera: " + id_cliente)
+    const { productos, fecha_pedido, forma_pago } = req.body;
 
-    const { id_cliente, fecha_pedido, forma_pago } = req.body;
-
+    const id_productos = Object.keys(productos);
+    const cantidades_productos = Object.values(productos);  
+  
     sequelize.query(
         'INSERT INTO pedidos (id_cliente, fecha_pedido, forma_pago) VALUES (?, ?, ?)', { replacements: [id_cliente, fecha_pedido, forma_pago] }
     ).then( resultados => {
-        console.log("Pedido creado!")
+        id_pedido = resultados[0]
+        console.log("Este es el id guardado: " + id_pedido);
+        console.log("Pedido creado!");
+
+
+        for(let i=0; i < id_productos.length; i++) {
+
+            sequelize.query(
+                'INSERT INTO productos_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)', { replacements: [id_pedido, id_productos[i], cantidades_productos[i]] }
+            ).then( resultados => {
+                console.log(resultados)
+                res.status(200).json( { "Resultado" : "Success !!" } )
+            })
+
+        };
+        
+
     })
 
-    //montar en productos_pedido id del pedido, id de productos y cantidad
+});
 
-    // const productosCarrito = [
-    //     {
-    //         id_pedido: 1,
-    //         id_producto: 1,
-    //         cantidad: 3
-    //     }
-    // ]
-    // for productosCarrito.lenght repita el query
-    const { id_pedido, id_producto, cantidad } = req.body;
+// Actualizar estado del pedido
+
+app.patch('/estado_pedidos', esAdmin, (req, res) => {
+
+    const { id_pedido, nuevo_estado } = req.body;
 
     sequelize.query(
-        'INSERT INTO productos_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)', { replacements: [id_pedido, id_producto, cantidad] }
+        `UPDATE pedidos SET estado = "${nuevo_estado}" WHERE id = ?`, { replacements : [ id_pedido ] }
     ).then( resultados => {
-        console.log(resultados)
-        res.status(200).json( { "Resultado" : "Success 2!!" } )
+        console.log("Actualizando pedido: " + resultados)
+        res.status(200).json( { "Resultado" : "Estado de pedido actualizado !!" } )
     })
 
-    // sequelize.query(
-    //     'INSERT INTO productos_pedido (id_producto) VALUES (?)', { replacements: [id_producto] }
-    // )
+});
 
-})
+// Editar pedido
+
+app.patch('/pedidos', esAdmin, (req, res) => {
+
+    const { id_pedido, fecha_pedido, forma_pago, estado } = req.body;
+
+    sequelize.query(
+        `UPDATE pedidos SET fecha_pedido = "${fecha_pedido}", forma_pago = "${forma_pago}", estado = "${estado}" WHERE id = ?`, { replacements : [ id_pedido ] }
+    ).then(resultados => {
+        console.log(resultados)
+        res.status(200).json({ "Resultado" : "Pedido actualizado !!" })
+    })
+
+});
+
+// Eliminar pedido
+
+app.delete('/pedidos', esAdmin, (req, res) => {
+
+    const { id_pedido } = req.body;
+
+    sequelize.query(
+        'DELETE FROM pedidos WHERE id = ?', { replacements : [id_pedido] }
+    ).then(resultados => {
+        console.log(resultados)
+        res.status(200).json({ "Resultado" : "Pedido eliminado !!" })
+    })
+
+});
 
 app.use((err, req, res, next) => {
 
