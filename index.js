@@ -42,7 +42,6 @@ const esAdmin = (req, res, next) => {
         .then((resultados) => resultados[0])
         .then((array) => array[0].es_admin)
         .then(es_admin => {
-
             if (es_admin === 1) {
                 next();
             } else {
