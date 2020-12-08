@@ -16,7 +16,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVnYXJuaWNhQHNlcmVtcHJlLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiRW1tYW51ZWwgR2FybmljYSIsImlhdCI6MTYwMDk5NjgzOX0.zkva5EnzUyauG6mJWxRUMe1QuDHEuAzYFm5ShIZ_2j0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJub21icmVfeV9hcGVsbGlkbyI6IkFkbWluaXN0cmFkb3IiLCJlc19hZG1pbiI6MSwiaWF0IjoxNjA3NDA4OTczfQ.Zf6LsG24CvRXFVrVw16QNVZcgHI_75zbDL5GOWrE4_Y",
 									"type": "string"
 								}
 							]
@@ -25,7 +25,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"producto\" : \"Pescado\",\r\n    \"precio\" : \"1000\"\r\n}",
+							"raw": "{\r\n    \"producto\" : \"Mojarra frita\",\r\n    \"precio\" : \"25000\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -33,7 +33,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/productos",
+							"raw": "http://127.0.0.1:3000/productos/nuevo",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -43,7 +43,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"productos"
+								"productos",
+								"nuevo"
 							]
 						}
 					},
@@ -55,7 +56,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:3000/productos",
+							"raw": "http://127.0.0.1:3000/productos/todos",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -65,7 +66,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"productos"
+								"productos",
+								"todos"
 							]
 						}
 					},
@@ -79,7 +81,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVnYXJuaWNhQHNlcmVtcHJlLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiRW1tYW51ZWwgR2FybmljYSIsImlhdCI6MTYwMDk5NjgzOX0.zkva5EnzUyauG6mJWxRUMe1QuDHEuAzYFm5ShIZ_2j0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJub21icmVfeV9hcGVsbGlkbyI6IkFkbWluaXN0cmFkb3IiLCJlc19hZG1pbiI6MSwiaWF0IjoxNjA3NDA4OTczfQ.Zf6LsG24CvRXFVrVw16QNVZcgHI_75zbDL5GOWrE4_Y",
 									"type": "string"
 								}
 							]
@@ -88,7 +90,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\" : \"4\",\r\n    \"producto\" : \"Mojarra\",\r\n    \"precio\" : \"6000\"\r\n}",
+							"raw": "{\r\n    \"id\" : \"1\",\r\n    \"producto\" : \"Pechuga gratinada\",\r\n    \"precio\" : \"19000\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -96,7 +98,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/productos",
+							"raw": "http://127.0.0.1:3000/productos/actualizar",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -106,7 +108,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"productos"
+								"productos",
+								"actualizar"
 							]
 						}
 					},
@@ -120,7 +123,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVnYXJuaWNhQHNlcmVtcHJlLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiRW1tYW51ZWwgR2FybmljYSIsImlhdCI6MTYwMDk5NjgzOX0.zkva5EnzUyauG6mJWxRUMe1QuDHEuAzYFm5ShIZ_2j0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJub21icmVfeV9hcGVsbGlkbyI6IkFkbWluaXN0cmFkb3IiLCJlc19hZG1pbiI6MSwiaWF0IjoxNjA3NDA4OTczfQ.Zf6LsG24CvRXFVrVw16QNVZcgHI_75zbDL5GOWrE4_Y",
 									"type": "string"
 								}
 							]
@@ -129,7 +132,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"producto\" : \"Pescado\"\r\n}",
+							"raw": "{\r\n    \"producto\" : \"Mojarra frita\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -137,7 +140,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/productos",
+							"raw": "http://127.0.0.1:3000/productos/eliminar",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -147,7 +150,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"productos"
+								"productos",
+								"eliminar"
 							]
 						}
 					},
@@ -189,7 +193,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJub21icmVfeV9hcGVsbGlkbyI6IkFkbWluaXN0cmFkb3IiLCJlc19hZG1pbiI6MSwiaWF0IjoxNjA3NDA4OTczfQ.Zf6LsG24CvRXFVrVw16QNVZcgHI_75zbDL5GOWrE4_Y",
 									"type": "string"
 								}
 							]
@@ -206,7 +210,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/pedidos",
+							"raw": "http://127.0.0.1:3000/pedidos/nuevo",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -216,7 +220,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"pedidos"
+								"pedidos",
+								"nuevo"
 							]
 						}
 					},
@@ -230,7 +235,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJub21icmVfeV9hcGVsbGlkbyI6IkFkbWluaXN0cmFkb3IiLCJlc19hZG1pbiI6MSwiaWF0IjoxNjA3NDA4OTczfQ.Zf6LsG24CvRXFVrVw16QNVZcgHI_75zbDL5GOWrE4_Y",
 									"type": "string"
 								}
 							]
@@ -239,7 +244,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_pedido\" : \"1\",\r\n    \"nuevo_estado\" : \"Entregado\"\r\n}",
+							"raw": "{\r\n    \"id_pedido\" : \"1\",\r\n    \"nuevo_estado\" : \"En proceso\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -247,7 +252,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/estado_pedidos",
+							"raw": "http://127.0.0.1:3000/pedidos/actualizar/estado",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -257,7 +262,9 @@
 							],
 							"port": "3000",
 							"path": [
-								"estado_pedidos"
+								"pedidos",
+								"actualizar",
+								"estado"
 							]
 						}
 					},
@@ -271,7 +278,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJub21icmVfeV9hcGVsbGlkbyI6IkFkbWluaXN0cmFkb3IiLCJlc19hZG1pbiI6MSwiaWF0IjoxNjA3NDA4OTczfQ.Zf6LsG24CvRXFVrVw16QNVZcgHI_75zbDL5GOWrE4_Y",
 									"type": "string"
 								}
 							]
@@ -280,7 +287,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_pedido\" : \"9\",\r\n    \"fecha_pedido\" : \"2020-11-27\",\r\n    \"forma_pago\" : \"Efectivo\",\r\n    \"estado\" : \"Entregado\"\r\n}",
+							"raw": "{\r\n    \"id_pedido\" : \"1\",\r\n    \"fecha_pedido\" : \"2020-11-27\",\r\n    \"forma_pago\" : \"Efectivo\",\r\n    \"estado\" : \"Entregado\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -288,7 +295,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/pedidos",
+							"raw": "http://127.0.0.1:3000/pedidos/actualizar",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -298,7 +305,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"pedidos"
+								"pedidos",
+								"actualizar"
 							]
 						}
 					},
@@ -312,7 +320,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJub21icmVfeV9hcGVsbGlkbyI6IkFkbWluaXN0cmFkb3IiLCJlc19hZG1pbiI6MSwiaWF0IjoxNjA3NDA4OTczfQ.Zf6LsG24CvRXFVrVw16QNVZcgHI_75zbDL5GOWrE4_Y",
 									"type": "string"
 								}
 							]
@@ -329,7 +337,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/pedidos",
+							"raw": "http://127.0.0.1:3000/pedidos/eliminar",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -339,7 +347,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"pedidos"
+								"pedidos",
+								"eliminar"
 							]
 						}
 					},
@@ -358,7 +367,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre_y_apellido\": \"Manuel Gomez\",\r\n    \"email\": \"mago@gmail.com\",\r\n    \"telefono\": \"55555555\",\r\n    \"direccion\": \"Ciudad Bolivar\",\r\n    \"contrasena\": \"ninja123\"\r\n}",
+							"raw": "{\r\n    \"nombre_y_apellido\": \"Administrador\",\r\n    \"email\": \"admin@gmail.com\",\r\n    \"telefono\": \"3115552233\",\r\n    \"direccion\": \"Desconocido\",\r\n    \"contrasena\": \"admin12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -366,7 +375,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/usuarios",
+							"raw": "http://127.0.0.1:3000/usuarios/registro",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -376,7 +385,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"usuarios"
+								"usuarios",
+								"registro"
 							]
 						}
 					},
@@ -389,7 +399,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"mago@gmail.com\",\r\n    \"contrasena\": \"ninja123\"\r\n}",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"contrasena\": \"admin12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -397,7 +407,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/login",
+							"raw": "http://127.0.0.1:3000/usuarios/login",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -407,6 +417,7 @@
 							],
 							"port": "3000",
 							"path": [
+								"usuarios",
 								"login"
 							]
 						}
@@ -424,7 +435,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYWdvQGdtYWlsLmNvbSIsIm5vbWJyZV95X2FwZWxsaWRvIjoiTWFudWVsIEdvbWV6IiwiZXNfYWRtaW4iOjAsImlhdCI6MTYwNTkyNTMzN30._k-9jKlv8F9SsLrUs9ZZvIl7yuu2YDJlLBvpXZf8svs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJub21icmVfeV9hcGVsbGlkbyI6IkFkbWluaXN0cmFkb3IiLCJlc19hZG1pbiI6MSwiaWF0IjoxNjA3NDA4OTczfQ.Zf6LsG24CvRXFVrVw16QNVZcgHI_75zbDL5GOWrE4_Y",
 									"type": "string"
 								}
 							]
@@ -436,7 +447,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3000/usuarios",
+							"raw": "http://127.0.0.1:3000/usuarios/todos",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -446,7 +457,8 @@
 							],
 							"port": "3000",
 							"path": [
-								"usuarios"
+								"usuarios",
+								"todos"
 							]
 						}
 					},
