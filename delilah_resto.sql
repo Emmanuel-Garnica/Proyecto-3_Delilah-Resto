@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:33067
--- Tiempo de generación: 28-11-2020 a las 02:43:45
+-- Tiempo de generación: 08-12-2020 a las 04:04:12
 -- Versión del servidor: 5.7.28-log
 -- Versión de PHP: 7.1.31
 
@@ -22,6 +22,10 @@ SET time_zone = "+00:00";
 -- Base de datos: `delilah_resto`
 --
 
+CREATE DATABASE delilah_resto;
+
+USE delilah_resto;
+
 -- --------------------------------------------------------
 
 --
@@ -36,21 +40,6 @@ CREATE TABLE `pedidos` (
   `estado` varchar(20) NOT NULL DEFAULT 'En proceso'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `pedidos`
---
-
-INSERT INTO `pedidos` (`id`, `id_cliente`, `fecha_pedido`, `forma_pago`, `estado`) VALUES
-(2, 1, '2019-05-13', 'Credit Card', 'En proceso'),
-(3, 1, '2019-05-13', 'Credit Card', 'En proceso'),
-(4, 1, '2019-05-20', 'Contra-entrega', 'En proceso'),
-(5, 2, '2020-11-20', 'Efectivo', 'En proceso'),
-(6, 2, '2020-11-21', 'Credit Card', 'En proceso'),
-(7, 2, '2020-11-21', 'Credit Card', 'En proceso'),
-(8, 2, '2020-11-21', 'PSE', 'En proceso'),
-(9, 2, '2020-11-27', 'Efectivo', 'Entregado'),
-(10, 2, '2020-11-21', 'PSE', 'En proceso');
-
 -- --------------------------------------------------------
 
 --
@@ -62,15 +51,6 @@ CREATE TABLE `productos` (
   `producto` varchar(100) NOT NULL,
   `precio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `productos`
---
-
-INSERT INTO `productos` (`id`, `producto`, `precio`) VALUES
-(1, 'Carne en bistec', 18000),
-(2, 'Pollo asado', 13500),
-(4, 'Mojarra', 6000);
 
 -- --------------------------------------------------------
 
@@ -84,17 +64,6 @@ CREATE TABLE `productos_pedido` (
   `id_producto` int(11) NOT NULL,
   `cantidad` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `productos_pedido`
---
-
-INSERT INTO `productos_pedido` (`id`, `id_pedido`, `id_producto`, `cantidad`) VALUES
-(2, 2, 2, 1),
-(3, 5, 1, 3),
-(4, 8, 1, 5),
-(5, 10, 1, 12),
-(6, 10, 2, 19);
 
 -- --------------------------------------------------------
 
@@ -117,8 +86,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre_y_apellido`, `email`, `telefono`, `direccion`, `hash`, `es_admin`) VALUES
-(1, 'Emmanuel Garnica', 'egarnica@serempre.com', '3107875920', 'Calle 46', '$2b$10$piSJJ8QeyvnAyNqROP5ffuOn/b4q6MrNmBm67cnXgsdut5/zoWamC', 1),
-(2, 'Manuel Gomez', 'mago@gmail.com', '55555555', 'Ciudad Bolivar', '$2b$10$aruArIvrVlgndVS6BpaFB.pwO1ry0tphtHxULik3W9a/EECwsto2e', 1);
+(1, 'Administrador', 'admin@gmail.com', '3115552233', 'Desconocido', '$2b$10$6tYR7SkPs6n6AbmBhnOLeOHsDRb9P4JsucfH9KTo.kutzpJXRs.tm', 1);
 
 --
 -- Índices para tablas volcadas
@@ -159,25 +127,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `productos_pedido`
 --
 ALTER TABLE `productos_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
