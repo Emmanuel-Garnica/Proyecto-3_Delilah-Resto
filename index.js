@@ -54,7 +54,7 @@ const esAdmin = (req, res, next) => {
 
 //Obtener todos los productos
 
-app.get('/productos', (req, res) => {
+app.get('/productos/todos', (req, res) => {
 
     sequelize.query(
         'SELECT * FROM productos', { type: sequelize.QueryTypes.SELECT }
@@ -67,9 +67,9 @@ app.get('/productos', (req, res) => {
 
 //Agregar producto (solo admin)
 
-app.post('/productos', esAdmin, (req, res) => {
+app.post('/productos/nuevo', esAdmin, (req, res) => {
 
-    const { producto, precio, foto } = req.body;
+    const { producto, precio } = req.body;
 
     sequelize.query(
         'INSERT INTO productos (producto, precio) VALUES (?, ?)', { replacements: [producto, precio] }
@@ -82,7 +82,7 @@ app.post('/productos', esAdmin, (req, res) => {
 
 //Actualizar producto (solo admin)
 
-app.patch('/productos', esAdmin, (req, res) => {
+app.patch('/productos/actualizar', esAdmin, (req, res) => {
 
     const { id, producto, precio } = req.body;
 
@@ -96,7 +96,7 @@ app.patch('/productos', esAdmin, (req, res) => {
 
 //Borrar productos (solo admin)
 
-app.delete('/productos', esAdmin, (req, res) => {
+app.delete('/productos/eliminar', esAdmin, (req, res) => {
 
     const producto = req.body.producto;
 
@@ -104,7 +104,7 @@ app.delete('/productos', esAdmin, (req, res) => {
         'DELETE FROM productos WHERE producto =?', { replacements: [producto] }
     ).then(resultados => {
         console.log(resultados)
-        res.status(200).json(resultados)
+        res.status(200).json({ "Resultado" : "Producto eliminado !!" })
     })
 
 });
@@ -138,7 +138,7 @@ function existeEmail(req, res, next) {
             if (obj === undefined) {
                 next();
             } else {
-                res.status(200).json({ Error: "Este correo ya se encuentra registrado." });
+                res.status(400).json({ Error: "Este correo ya se encuentra registrado." });
             }
         })
 
@@ -146,7 +146,7 @@ function existeEmail(req, res, next) {
 
 //Registrar nuevo usuario
 
-app.post('/usuarios', suministraDatosReg, existeEmail, (req, res) => {
+app.post('/usuarios/registro', suministraDatosReg, existeEmail, (req, res) => {
 
     const { nombre_y_apellido, email, telefono, direccion, contrasena } = req.body;
 
@@ -164,7 +164,7 @@ app.post('/usuarios', suministraDatosReg, existeEmail, (req, res) => {
 
 //Login de usuarios
 
-app.post('/login', (req, res) => {
+app.post('/usuarios/login', (req, res) => {
 
     const { email, contrasena } = req.body;
 
@@ -220,7 +220,7 @@ app.post('/login', (req, res) => {
 
 // Obtener todos los usuarios
 
-app.get('/usuarios', esAdmin, (req, res) => {
+app.get('/usuarios/todos', esAdmin, (req, res) => {
 
     sequelize.query(
         'SELECT * FROM usuarios'
@@ -228,11 +228,11 @@ app.get('/usuarios', esAdmin, (req, res) => {
         res.status(200).json( { resultados } )
     })
 
-})
+});
 
 //Crear pedido
 
-app.post('/pedidos', (req, res) => {
+app.post('/pedidos/nuevo', (req, res) => {
 
     // Se puede dejar el id del usuario dentro del token para no realizar la tarea con el query del email (aún no sé como sacar el id del usuario)
     const signed = req.headers.authorization.split(' ')[1];
@@ -261,7 +261,7 @@ app.post('/pedidos', (req, res) => {
                 'INSERT INTO productos_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)', { replacements: [id_pedido, id_productos[i], cantidades_productos[i]] }
             ).then( resultados => {
                 console.log(resultados)
-                res.status(200).json( { "Resultado" : "Success !!" } )
+                res.status(201).json( { "Resultado" : "Success !!" } )
             })
 
         };
@@ -273,7 +273,7 @@ app.post('/pedidos', (req, res) => {
 
 // Actualizar estado del pedido
 
-app.patch('/estado_pedidos', esAdmin, (req, res) => {
+app.patch('/pedidos/actualizar/estado', esAdmin, (req, res) => {
 
     const { id_pedido, nuevo_estado } = req.body;
 
@@ -288,7 +288,7 @@ app.patch('/estado_pedidos', esAdmin, (req, res) => {
 
 // Editar pedido
 
-app.patch('/pedidos', esAdmin, (req, res) => {
+app.patch('/pedidos/actualizar', esAdmin, (req, res) => {
 
     const { id_pedido, fecha_pedido, forma_pago, estado } = req.body;
 
@@ -303,7 +303,7 @@ app.patch('/pedidos', esAdmin, (req, res) => {
 
 // Eliminar pedido
 
-app.delete('/pedidos', esAdmin, (req, res) => {
+app.delete('/pedidos/eliminar', esAdmin, (req, res) => {
 
     const { id_pedido } = req.body;
 
